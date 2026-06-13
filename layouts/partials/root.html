@@ -1,5 +1,11 @@
 {{- $root := "./" -}}
-{{- $parts := split .RelPermalink "/" -}}
+{{- $basePath := (urls.Parse site.BaseURL).Path -}}
+{{- $path := .RelPermalink -}}
+{{- if $basePath -}}
+  {{- $path = strings.TrimPrefix $basePath $path -}}
+{{- end -}}
+{{- $path = strings.TrimPrefix "/" $path -}}
+{{- $parts := split $path "/" -}}
 {{- $depth := 0 -}}
 {{- range $parts -}}
   {{- if . -}}{{- $depth = add $depth 1 -}}{{- end -}}
