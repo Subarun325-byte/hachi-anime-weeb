@@ -51,7 +51,7 @@
     <h2 class="text-2xl font-bold mb-2">If You Liked...</h2>
     <p class="text-[var(--color-text-muted)] text-sm mb-8">Anime similar to shows you already love</p>
 
-    {{ $data := hugo.Data.anime }}
+    {{ $data := .Site.Data.anime }}
     {{ $topAnime := slice }}
     {{ with $data }}
       {{ with .topAnime }}

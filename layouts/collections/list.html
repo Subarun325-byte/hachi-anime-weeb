@@ -8,7 +8,7 @@
     {{ end }}
   </div>
 
-  {{ $data := hugo.Data.anime }}
+  {{ $data := .Site.Data.anime }}
   {{ $allAnime := slice }}
 
   {{ with $data }}

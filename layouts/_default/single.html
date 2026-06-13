@@ -33,7 +33,7 @@
 
   {{ $animeIds := .Params.anime_ids }}
   {{ if $animeIds }}
-    {{ $data := hugo.Data.anime }}
+    {{ $data := .Site.Data.anime }}
     {{ $allAnime := slice }}
 
     {{ with $data }}
