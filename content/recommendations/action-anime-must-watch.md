@@ -2,7 +2,7 @@
 title: "Action Anime That Hits Different"
 description: "From hand-drawn fights to jaw-dropping animation — these are the best action anime has to offer."
 date: 2026-06-01
-cover: "/images/covers/action-anime-must-watch.jpg"
+cover: "images/covers/action-anime-must-watch.jpg"
 anime_ids: [5114, 11061, 38524, 41467, 57555, 61469, 52991, 2904]
 tags: ["action", "fighting", "animation"]
 ---

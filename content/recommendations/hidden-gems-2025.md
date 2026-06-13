@@ -2,7 +2,7 @@
 title: "Hidden Gems You Probably Missed"
 description: "These under-the-radar anime deserve way more attention than they get."
 date: 2026-06-08
-cover: "/images/covers/hidden-gems-2025.jpg"
+cover: "images/covers/hidden-gems-2025.jpg"
 anime_ids: [52991, 57555, 58514, 35180, 51553, 62568]
 tags: ["hidden-gems", "underrated", "discover"]
 ---
