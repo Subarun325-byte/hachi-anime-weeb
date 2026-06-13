@@ -1,0 +1,11 @@
+{{- $root := "./" -}}
+{{- $parts := split .RelPermalink "/" -}}
+{{- $depth := 0 -}}
+{{- range $parts -}}
+  {{- if . -}}{{- $depth = add $depth 1 -}}{{- end -}}
+{{- end -}}
+{{- if gt $depth 0 -}}
+  {{- $root = "" -}}
+  {{- range seq $depth -}}{{- $root = printf "../%s" $root -}}{{- end -}}
+{{- end -}}
+{{- $root -}}

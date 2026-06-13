@@ -1,0 +1,110 @@
+{{ define "main" }}
+{{- $root := partial "root.html" . -}}
+{{ partial "hero.html" . }}
+
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+  {{/* Featured Recommendations */}}
+  <section class="py-12">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-2xl font-bold">Latest Picks</h2>
+        <p class="text-[var(--color-text-muted)] text-sm mt-1">Fresh recommendations, updated regularly</p>
+      </div>
+      <a href="{{ $root }}recommendations/index.html" class="text-sm text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors font-medium">
+        All Recommendations &rarr;
+      </a>
+    </div>
+
+    {{ $reco := where .Site.RegularPages "Section" "recommendations" }}
+    {{ $reco = $reco | first 4 }}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {{ range $reco }}
+        {{ $slug := .File.ContentBaseName }}
+        <a href="{{ $root }}recommendations/{{ $slug }}/index.html" class="anime-card group block rounded-xl overflow-hidden">
+          {{ with .Params.cover }}
+            <div class="aspect-[16/7] overflow-hidden bg-[var(--color-border)]">
+              <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy">
+            </div>
+          {{ end }}
+          <div class="p-5">
+            <div class="flex flex-wrap gap-2 mb-3">
+              {{ with .Params.tags }}
+                {{ range first 3 . }}
+                  <span class="genre-badge text-[10px] px-2 py-0.5 rounded-full">{{ . }}</span>
+                {{ end }}
+              {{ end }}
+            </div>
+            <h3 class="text-lg font-bold mb-2 group-hover:text-[var(--color-primary)] transition-colors">{{ .Title }}</h3>
+            <p class="text-sm text-[var(--color-text-muted)] line-clamp-2">{{ .Description }}</p>
+            <div class="mt-3 text-xs text-[var(--color-text-muted)]">
+              {{ .Date.Format "Jan 2, 2006" }}
+            </div>
+          </div>
+        </a>
+      {{ end }}
+    </div>
+  </section>
+
+  {{/* If You Liked... Section */}}
+  <section class="py-12 border-t border-[var(--color-border)]">
+    <h2 class="text-2xl font-bold mb-2">If You Liked...</h2>
+    <p class="text-[var(--color-text-muted)] text-sm mb-8">Anime similar to shows you already love</p>
+
+    {{ $data := hugo.Data.anime }}
+    {{ $topAnime := slice }}
+    {{ with $data }}
+      {{ with .topAnime }}
+        {{ $allData := index . 0 }}
+        {{ with $allData.data }}{{ $topAnime = . }}{{ end }}
+      {{ end }}
+    {{ end }}
+
+    {{ if gt (len $topAnime) 0 }}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {{ range first 6 $topAnime }}
+          {{ $anime := . }}
+          {{ with .node }}{{ $anime = . }}{{ end }}
+          <div class="anime-card rounded-xl p-4 flex gap-4">
+            {{ with $anime.main_picture }}
+              {{ $pic := .local | default .large | default .medium }}
+              {{ with $pic }}
+                <img src="{{ . }}" alt="{{ $anime.title }}" class="w-16 h-22 object-cover rounded-lg flex-shrink-0" loading="lazy">
+              {{ end }}
+            {{ end }}
+            <div class="flex-1 min-w-0">
+              <h4 class="font-semibold text-sm line-clamp-2 mb-1">{{ $anime.title }}</h4>
+              {{ with $anime.mean }}
+                <div class="flex items-center gap-1 mb-1">
+                  <span class="score-badge px-1.5 py-0.5 rounded text-[10px] font-bold">{{ . }}</span>
+                </div>
+              {{ end }}
+              {{ with $anime.genres }}
+                <div class="flex flex-wrap gap-1">
+                  {{ range first 2 . }}
+                    <span class="text-[10px] text-[var(--color-text-muted)]">{{ .name }}</span>
+                  {{ end }}
+                </div>
+              {{ end }}
+            </div>
+          </div>
+        {{ end }}
+      </div>
+    {{ end }}
+  </section>
+
+  {{/* Genre Pills */}}
+  <section class="py-12 border-t border-[var(--color-border)]">
+    <h2 class="text-2xl font-bold mb-2">Browse by Genre</h2>
+    <p class="text-[var(--color-text-muted)] text-sm mb-6">Find your next favorite based on what you're in the mood for</p>
+
+    <div class="flex flex-wrap gap-2">
+      {{ $genres := slice (dict "name" "Action" "url" "https://myanimelist.net/anime/genre/1/Action") (dict "name" "Adventure" "url" "https://myanimelist.net/anime/genre/2/Adventure") (dict "name" "Comedy" "url" "https://myanimelist.net/anime/genre/4/Comedy") (dict "name" "Drama" "url" "https://myanimelist.net/anime/genre/8/Drama") (dict "name" "Fantasy" "url" "https://myanimelist.net/anime/genre/10/Fantasy") (dict "name" "Horror" "url" "https://myanimelist.net/anime/genre/14/Horror") (dict "name" "Mystery" "url" "https://myanimelist.net/anime/genre/7/Mystery") (dict "name" "Romance" "url" "https://myanimelist.net/anime/genre/22/Romance") (dict "name" "Sci-Fi" "url" "https://myanimelist.net/anime/genre/24/Sci-Fi") (dict "name" "Slice of Life" "url" "https://myanimelist.net/anime/genre/36/Slice_of_Life") (dict "name" "Sports" "url" "https://myanimelist.net/anime/genre/30/Sports") (dict "name" "Supernatural" "url" "https://myanimelist.net/anime/genre/37/Supernatural") }}
+      {{ range $genres }}
+        <a href="{{ .url }}" target="_blank" rel="noopener" class="genre-badge px-3 py-1.5 rounded-full text-xs font-medium hover:scale-105 transition-transform">{{ .name }}</a>
+      {{ end }}
+    </div>
+  </section>
+
+</div>
+{{ end }}

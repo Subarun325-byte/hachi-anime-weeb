@@ -1,0 +1,78 @@
+{{ define "main" }}
+{{- $root := partial "root.html" . -}}
+<article class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
+
+  {{ with .Params.cover }}
+    <div class="aspect-[16/7] rounded-xl overflow-hidden mb-8 bg-[var(--color-border)]">
+      <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-full object-cover" loading="lazy">
+    </div>
+  {{ end }}
+
+  <div class="flex flex-wrap items-center gap-3 mb-4">
+    {{ with .Params.tags }}
+      {{ range first 3 . }}
+        <span class="genre-badge text-xs px-2.5 py-1 rounded-full">{{ . }}</span>
+      {{ end }}
+    {{ end }}
+    <span class="text-xs text-[var(--color-text-muted)]">{{ .Date.Format "January 2, 2006" }}</span>
+  </div>
+
+  <h1 class="text-3xl md:text-4xl font-bold mb-4">{{ .Title }}</h1>
+
+  {{ with .Description }}
+    <p class="text-lg text-[var(--color-text-muted)] mb-8 leading-relaxed">{{ . }}</p>
+  {{ end }}
+
+  <div class="prose prose-invert max-w-none mb-12
+    prose-headings:text-[var(--color-text)] prose-headings:font-bold
+    prose-p:text-[var(--color-text-muted)] prose-p:leading-relaxed
+    prose-strong:text-[var(--color-text)]
+    prose-a:text-[var(--color-primary)] prose-a:no-underline hover:prose-a:underline">
+    {{ .Content }}
+  </div>
+
+  {{ $animeIds := .Params.anime_ids }}
+  {{ if $animeIds }}
+    {{ $data := hugo.Data.anime }}
+    {{ $allAnime := slice }}
+
+    {{ with $data }}
+      {{ range .topAnime }}
+        {{ range .data }}
+          {{ $item := . }}
+          {{ with .node }}{{ $item = . }}{{ end }}
+          {{ $allAnime = $allAnime | append $item }}
+        {{ end }}
+      {{ end }}
+      {{ range .seasonal.data }}
+        {{ $item := . }}
+        {{ with .node }}{{ $item = . }}{{ end }}
+        {{ $allAnime = $allAnime | append $item }}
+      {{ end }}
+    {{ end }}
+
+    <div class="mb-8">
+      <h2 class="text-xl font-bold mb-4">Featured Anime</h2>
+      <div class="flex flex-col gap-3">
+        {{ range $animeIds }}
+          {{ $id := . }}
+          {{ $found := false }}
+          {{ range $allAnime }}
+            {{ if and (not $found) (eq (int $id) (int .id)) }}
+              {{ $found = true }}
+              {{ partial "anime-list-item.html" (dict "anime" .) }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      </div>
+    </div>
+  {{ end }}
+
+  <div class="mt-12 pt-8 border-t border-[var(--color-border)]">
+    <a href="{{ $root }}recommendations/index.html" class="text-sm text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors">
+      &larr; Back to all recommendations
+    </a>
+  </div>
+
+</article>
+{{ end }}

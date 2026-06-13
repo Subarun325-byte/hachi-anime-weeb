@@ -1,0 +1,62 @@
+{{ define "main" }}
+{{- $root := partial "root.html" . -}}
+<div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12">
+  <div class="mb-10">
+    <h1 class="text-3xl font-bold mb-2">{{ .Title }}</h1>
+    {{ with .Description }}
+      <p class="text-[var(--color-text-muted)] text-lg">{{ . }}</p>
+    {{ end }}
+  </div>
+
+  {{ $data := hugo.Data.anime }}
+  {{ $allAnime := slice }}
+
+  {{ with $data }}
+    {{ range .topAnime }}
+      {{ range .data }}
+        {{ $item := . }}
+        {{ with .node }}{{ $item = . }}{{ end }}
+        {{ $allAnime = $allAnime | append $item }}
+      {{ end }}
+    {{ end }}
+    {{ with .seasonal }}
+      {{ range .data }}
+        {{ $item := . }}
+        {{ with .node }}{{ $item = . }}{{ end }}
+        {{ $allAnime = $allAnime | append $item }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+
+  {{ $seen := slice }}
+  {{ $unique := slice }}
+  {{ range $allAnime }}
+    {{ $id := .id | default .node.id }}
+    {{ $isNew := true }}
+    {{ range $seen }}
+      {{ if eq (int .) (int $id) }}
+        {{ $isNew = false }}
+      {{ end }}
+    {{ end }}
+    {{ if $isNew }}
+      {{ $seen = $seen | append $id }}
+      {{ $unique = $unique | append . }}
+    {{ end }}
+  {{ end }}
+
+  {{ $total := len $unique }}
+
+  {{ if gt $total 0 }}
+    <div class="flex flex-col gap-2">
+      {{ range $i, $anime := $unique }}
+        {{ $rank := sub $total $i }}
+        {{ partial "anime-list-item.html" (dict "anime" $anime "rank" $rank) }}
+      {{ end }}
+    </div>
+  {{ else }}
+    <div class="text-center py-16">
+      <p class="text-[var(--color-text-muted)] text-lg">No anime found.</p>
+    </div>
+  {{ end }}
+</div>
+{{ end }}

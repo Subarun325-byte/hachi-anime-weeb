@@ -1,0 +1,81 @@
+:root {
+  --color-bg: #0d1b2a;
+  --color-bg-card: #1b2838;
+  --color-bg-card-hover: #162d44;
+  --color-primary: #e94560;
+  --color-primary-dark: #c73650;
+  --color-secondary: #533483;
+  --color-secondary-light: #7c5cbf;
+  --color-accent: #0f3460;
+  --color-text: #eaeaea;
+  --color-text-muted: #9ca3af;
+  --color-border: #1e3a5f;
+  --color-gold: #f5c518;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.anime-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+.anime-card:hover {
+  background: var(--color-bg-card-hover);
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(233, 69, 96, 0.15);
+}
+
+.score-badge {
+  background: linear-gradient(135deg, var(--color-gold), #ff9800);
+  color: #000;
+}
+
+.genre-badge {
+  background: var(--color-accent);
+  border: 1px solid var(--color-secondary);
+  color: var(--color-text);
+  transition: all 0.2s ease;
+}
+
+.genre-badge:hover {
+  background: var(--color-secondary);
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #0d1b2a 0%, #1a3a5c 50%, #2d1b69 100%);
+}
+
+.hero-title {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }

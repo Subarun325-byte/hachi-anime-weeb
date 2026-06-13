@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a0a0a;
+  --color-bg-card: #1a1a2e;
+  --color-bg-card-hover: #16213e;
+  --color-primary: #e94560;
+  --color-primary-dark: #c73650;
+  --color-secondary: #533483;
+  --color-secondary-light: #7c5cbf;
+  --color-accent: #0f3460;
+  --color-text: #eaeaea;
+  --color-text-muted: #9ca3af;
+  --color-border: #2a2a3e;
+  --color-gold: #f5c518;
+  --font-sans: 'Inter', 'Noto Sans JP', system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+.anime-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+.anime-card:hover {
+  background: var(--color-bg-card-hover);
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(233, 69, 96, 0.15);
+}
+
+.score-badge {
+  background: linear-gradient(135deg, var(--color-gold), #ff9800);
+  color: #000;
+}
+
+.genre-badge {
+  background: var(--color-accent);
+  border: 1px solid var(--color-secondary);
+  color: var(--color-text);
+  transition: all 0.2s ease;
+}
+
+.genre-badge:hover {
+  background: var(--color-secondary);
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-accent) 50%, var(--color-secondary) 100%);
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}

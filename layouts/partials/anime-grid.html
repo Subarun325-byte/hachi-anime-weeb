@@ -1,0 +1,27 @@
+{{ $items := .items }}
+{{ $title := .title | default "" }}
+{{ $showMore := .showMore | default false }}
+{{ $moreLink := .moreLink | default "" }}
+
+{{ with $items }}
+<section class="py-8">
+  {{ with $title }}
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold">{{ . }}</h2>
+      {{ if $showMore }}
+        <a href="{{ $moreLink }}" class="text-sm text-[var(--color-primary)] hover:text-[var(--color-primary-dark)] transition-colors font-medium">
+          View All &rarr;
+        </a>
+      {{ end }}
+    </div>
+  {{ end }}
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    {{ range . }}
+      {{ $anime := . }}
+      {{ with .node }}{{ $anime = . }}{{ end }}
+      {{ partial "anime-card.html" (dict "anime" $anime) }}
+    {{ end }}
+  </div>
+</section>
+{{ end }}

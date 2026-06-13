@@ -1,0 +1,24 @@
+baseURL = '/'
+locale = 'en-us'
+title = 'Hachi Anime Weeb'
+
+[params]
+  description = 'Discover your next favorite anime with curated recommendations powered by MyAnimeList'
+  author = 'Hachi'
+  malClientId = ''
+
+[taxonomies]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[module]
+  [[module.mounts]]
+    source = 'assets/css'
+    target = 'assets/css'
+
+  [[module.mounts]]
+    source = 'assets/js'
+    target = 'assets/js'

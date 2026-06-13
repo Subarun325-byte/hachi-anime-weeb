@@ -1,0 +1,83 @@
+{{- $root := partial "root.html" . -}}
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Locale }}" class="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta name="author" content="{{ .Site.Params.author }}">
+
+  <meta property="og:title" content="{{ .Title }}">
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ .Permalink }}">
+  {{ with .Site.Params.image }}<meta property="og:image" content="{{ . }}">{{ end }}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bg: { DEFAULT: '#0d1b2a', card: '#1b2838', 'card-hover': '#162d44' },
+            primary: { DEFAULT: '#e94560', dark: '#c73650' },
+            secondary: { DEFAULT: '#533483', light: '#7c5cbf' },
+            accent: '#0f3460',
+            border: '#1e3a5f',
+            gold: '#f5c518',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <link rel="stylesheet" href="{{ $root }}css/custom.css">
+</head>
+<body class="min-h-screen flex flex-col antialiased bg-[#0d1b2a] text-[#eaeaea] font-sans">
+  {{ partial "nav.html" . }}
+
+  <main class="flex-1">
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  {{ partial "footer.html" . }}
+
+  <script src="{{ $root }}js/search.js" defer></script>
+  <div id="loading-screen" class="fixed inset-0 z-[100] bg-[#0d1b2a] flex flex-col items-center justify-center transition-opacity duration-500">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-[#e94560] animate-bounce" viewBox="0 0 24 24" fill="none"><path d="M3 10l3-7h12l3 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="13" r="1.5" fill="currentColor"/><circle cx="15" cy="13" r="1.5" fill="currentColor"/><path d="M12 16v1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M6 11c-1 2-1 4 0 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M18 11c1 2 1 4 0 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M10 19c1 .8 3 .8 4 0" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+    <p class="mt-4 text-[#eaeaea] text-lg font-medium">Hachi Anime Weeb</p>
+    <div class="mt-4 w-32 h-1 bg-[#1b2838] rounded-full overflow-hidden">
+      <div id="loading-bar" class="h-full bg-[#e94560] rounded-full" style="width: 0%"></div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      var bar = document.getElementById('loading-bar');
+      var screen = document.getElementById('loading-screen');
+      var progress = 0;
+      var interval = setInterval(function() {
+        progress += 3;
+        if (bar) bar.style.width = progress + '%';
+        if (progress >= 100) {
+          clearInterval(interval);
+          if (screen) {
+            screen.style.opacity = '0';
+            setTimeout(function() { screen.remove(); }, 500);
+          }
+        }
+      }, 90);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{{- $root := partial "root.html" . -}}
+{{ $reco := where site.RegularPages "Section" "recommendations" }}
+{{ $featured := index $reco 0 }}
+
+<section class="hero-gradient relative overflow-hidden">
+  <div class="absolute inset-0 bg-[url('{{ $root }}images/pattern.svg')] opacity-10"></div>
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 text-[var(--color-primary)] text-xs font-medium mb-6">
+          <span class="w-1.5 h-1.5 bg-[var(--color-primary)] rounded-full animate-pulse"></span>
+          Curated Picks
+        </div>
+
+        <h1 class="hero-title text-4xl md:text-5xl lg:text-6xl font-bold mb-4 glow-text leading-tight">
+          Find Your Next<br>
+          <span class="text-[var(--color-primary)]">Favorite Anime</span>
+        </h1>
+
+        <p class="text-lg text-[var(--color-text-muted)] mb-8 max-w-lg">
+          Handpicked anime recommendations from someone who's actually watched them all. No trends to chase, no algorithm-driven picks — just genuinely great anime.
+        </p>
+
+        <div class="flex flex-wrap gap-3">
+          {{ with $featured }}
+            {{ $slug := .File.ContentBaseName }}
+            <a href="{{ $root }}recommendations/{{ $slug }}/index.html" class="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] text-white font-medium rounded-lg transition-colors">
+              {{ .Title }}
+              &rarr;
+            </a>
+          {{ end }}
+          <a href="{{ $root }}collections/index.html" class="inline-flex items-center gap-2 px-5 py-2.5 border border-[var(--color-border)] hover:border-[var(--color-primary)] text-[var(--color-text)] font-medium rounded-lg transition-colors">
+            All Picks
+          </a>
+        </div>
+      </div>
+
+      {{ with $featured }}
+        {{ with .Params.cover }}
+          <div class="hidden md:flex justify-center">
+            <div class="relative">
+              <div class="absolute -inset-4 bg-[var(--color-primary)]/20 rounded-2xl blur-xl"></div>
+              <img
+                src="{{ . }}"
+                alt="{{ $featured.Title }}"
+                class="relative w-72 rounded-xl shadow-2xl"
+                loading="lazy"
+              >
+            </div>
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</section>

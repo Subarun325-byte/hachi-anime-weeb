@@ -1,0 +1,62 @@
+{{- $root := partial "root.html" . -}}
+<nav class="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg)]/90 backdrop-blur-xl">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <a href="{{ $root }}index.html" class="flex items-center gap-2 text-xl font-bold flex-shrink-0">
+        <span class="text-[var(--color-primary)]">八</span>
+        <span>Hachi</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-6">
+        <a href="{{ $root }}index.html" class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">Home</a>
+        <a href="{{ $root }}recommendations/index.html" class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">Recommendations</a>
+        <a href="{{ $root }}collections/index.html" class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors">Collections</a>
+        <a href="mailto:subarun320@gmail.com" class="text-sm text-[var(--color-primary)] hover:text-[var(--color-text)] transition-colors font-medium">Support Us</a>
+      </div>
+
+      <div class="hidden md:flex items-center gap-3">
+        <div class="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--color-text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+          <input
+            type="text"
+            id="nav-search"
+            placeholder="Search anime..."
+            class="w-64 pl-10 pr-4 py-2 text-sm bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-[var(--color-text)] placeholder-[var(--color-text-muted)] outline-none focus:border-[var(--color-primary)] transition-colors"
+          >
+          <div id="search-results" class="hidden absolute right-0 top-full mt-2 w-96 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl shadow-2xl max-h-80 overflow-y-auto z-50"></div>
+        </div>
+      </div>
+
+      <button id="mobile-menu-toggle" class="md:hidden p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text)]" aria-label="Menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-[var(--color-border)] mt-2 pt-4">
+      <div class="flex flex-col gap-3 mb-4">
+        <a href="{{ $root }}index.html" class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)]">Home</a>
+        <a href="{{ $root }}recommendations/index.html" class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)]">Recommendations</a>
+        <a href="{{ $root }}collections/index.html" class="text-sm text-[var(--color-text-muted)] hover:text-[var(--color-text)]">Collections</a>
+        <a href="mailto:subarun320@gmail.com" class="text-sm text-[var(--color-primary)] hover:text-[var(--color-text)] transition-colors font-medium">Support Us</a>
+      </div>
+      <div class="relative">
+        <svg xmlns="http://www.w3.org/2000/svg" class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[var(--color-text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input
+          type="text"
+          id="nav-search-mobile"
+          placeholder="Search anime..."
+          class="w-full pl-10 pr-4 py-2 text-sm bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-[var(--color-text)] placeholder-[var(--color-text-muted)] outline-none focus:border-[var(--color-primary)] transition-colors"
+        >
+        <div id="search-results-mobile" class="hidden absolute left-0 right-0 top-full mt-2 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl shadow-2xl max-h-80 overflow-y-auto z-50"></div>
+      </div>
+    </div>
+  </div>
+</nav>

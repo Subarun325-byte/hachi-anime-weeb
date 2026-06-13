@@ -1,0 +1,9 @@
+{{ $name := .name | default "" }}
+{{ $count := .count | default 0 }}
+
+<a href="/genres/{{ $name | urlize }}/" class="genre-badge inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all hover:scale-105">
+  {{ $name }}
+  {{ if gt $count 0 }}
+    <span class="text-[var(--color-text-muted)] text-xs">({{ $count }})</span>
+  {{ end }}
+</a>
