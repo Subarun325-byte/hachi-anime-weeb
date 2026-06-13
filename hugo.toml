@@ -1,5 +1,5 @@
-baseURL = '/'
-locale = 'en-us'
+baseURL = '/hachi-anime-weeb/'
+
 title = 'Hachi Anime Weeb'
 
 [params]
